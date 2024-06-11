@@ -1,0 +1,32 @@
+/* ProblemListPage.css */
+
+.problem-list-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+}
+
+.problem-list-section {
+    flex: 70%;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+}
+
+.user-info-section {
+    flex: 30%;
+    padding: 20px;
+    background-color: #f8f9fa;
+}

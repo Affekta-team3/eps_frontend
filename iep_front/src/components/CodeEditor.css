@@ -1,0 +1,41 @@
+/* CodingPage.css */
+
+.coding-page {
+    display: grid;
+    grid-template-areas:
+    "problem-details problem-details"
+    "code-editor result-section"
+    "chatbot chatbot";
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.problem-details {
+    grid-area: problem-details;
+}
+
+.code-editor {
+    grid-area: code-editor;
+}
+
+.result-section {
+    grid-area: result-section;
+}
+
+.chatbot {
+    grid-area: chatbot;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+}
+
+button {
+    margin-top: 10px;
+}
+
+h2, h3 {
+    margin-top: 0;
+}

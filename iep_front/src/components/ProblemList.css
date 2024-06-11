@@ -1,0 +1,19 @@
+/* ProblemList.css */
+
+.problem-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.problem-list li {
+    margin: 10px 0;
+}
+
+.problem-list a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.problem-list a:hover {
+    text-decoration: underline;
+}
