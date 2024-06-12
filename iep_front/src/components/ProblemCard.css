@@ -1,0 +1,42 @@
+/* ProblemCard.css */
+
+.problem-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.problem-card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.problem-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.problem-card h3 {
+    margin: 0 0 10px 0;
+}
+
+.problem-card p {
+    margin: 5px 0;
+}
+
+.tags {
+    margin-top: 10px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #333;
+}

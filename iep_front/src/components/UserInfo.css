@@ -5,10 +5,117 @@
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-.user-info h2 {
-    margin-top: 0;
+.user-name {
+    margin-bottom: 20px;
+}
+
+.avatar-container {
+    position: relative;
+    width: 150px;
+    margin: 0 auto;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    perspective: 1000px;
+}
+
+.avatar-front, .avatar-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+}
+
+.avatar-front {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.avatar-image {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.avatar-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    border-radius: 50%;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.avatar:hover .avatar-front {
+    transform: rotateY(180deg);
+}
+
+.avatar:hover .avatar-back {
+    transform: rotateY(0deg);
+}
+
+.experience-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.circular-chart {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 3.8;
+}
+
+.circle {
+    fill: none;
+    stroke-width: 2.8;
+    stroke: #0bb90b;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+    0% {
+        stroke-dasharray: 0 100;
+    }
+}
+
+.experience {
+    margin-top: 10px;
+}
+
+.coins {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.coin-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.user-info h3 {
+    margin-top: 20px;
 }
 
 .user-info ul {
