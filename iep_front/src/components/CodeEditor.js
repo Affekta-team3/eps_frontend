@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import './CodeEditor.css'; // Add this line to include the CSS file
+import { useNavigate } from 'react-router-dom';
 
-const CodeEditor = ({ onSubmit, onTest }) => {
+const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti }) => {
     const [code, setCode] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = () => {
         onSubmit(code);
+        setActiveTab('Result');
+        triggerConfetti();
     };
 
     const handleTest = () => {

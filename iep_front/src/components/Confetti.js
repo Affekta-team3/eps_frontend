@@ -23,7 +23,7 @@ const Confetti = () => {
 
                 gsap.fromTo(div, {
                     x: Math.random() * window.innerWidth,
-                    y: -20,
+                    y: -100, // Start above the top of the screen
                     rotation: Math.random() * 360,
                 }, {
                     x: Math.random() * window.innerWidth,

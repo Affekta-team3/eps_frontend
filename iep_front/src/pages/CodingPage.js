@@ -3,6 +3,7 @@ import ProblemDetails from '../components/ProblemDetails';
 import CodeEditor from '../components/CodeEditor';
 import ResultSection from '../components/ResultSection';
 import TestResultSection from '../components/TestResultSection';
+import Confetti from '../components/Confetti'; // Import the Confetti component
 import Chatbot from '../components/Chatbot';
 import './CodingPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +14,7 @@ const CodingPage = ({ match }) => {
     const [activeTab, setActiveTab] = useState('Coding');
     const [result, setResult] = useState('');
     const [testResult, setTestResult] = useState('');
+    const [showConfetti, setShowConfetti] = useState(false);
     const navigate = useNavigate();
 
     const handleBackClick = () => {
@@ -33,6 +35,11 @@ const CodingPage = ({ match }) => {
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
+    };
+
+    const triggerConfetti = () => {
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 3000); // Remove confetti after 3 seconds
     };
 
     return (
@@ -84,7 +91,7 @@ const CodingPage = ({ match }) => {
                 <div className="coding-side">
                     {activeTab === 'Coding' && (
                         <div className="card">
-                            <CodeEditor onSubmit={handleSubmission} onTest={handleTest} />
+                            <CodeEditor onSubmit={handleSubmission} onTest={handleTest} setActiveTab={setActiveTab} triggerConfetti={triggerConfetti} />
                         </div>
                     )}
                     {activeTab === 'Result' && (
@@ -94,6 +101,7 @@ const CodingPage = ({ match }) => {
                     )}
                 </div>
             </div>
+            {showConfetti && <Confetti />}
             <Chatbot />
         </div>
     );
