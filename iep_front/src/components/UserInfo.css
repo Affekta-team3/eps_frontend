@@ -1,8 +1,8 @@
 /* UserInfo.css */
 
 .user-info {
-    padding: 10px;
     background-color: white;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -14,13 +14,13 @@
 
 .avatar-container {
     position: relative;
-    width: 150px;
+    width: 120px; /* Reduced size for smaller user info card */
     margin: 0 auto;
 }
 
 .avatar {
-    width: 150px;
-    height: 150px;
+    width: 120px; /* Reduced size for smaller user info card */
+    height: 120px; /* Reduced size for smaller user info card */
     perspective: 1000px;
 }
 

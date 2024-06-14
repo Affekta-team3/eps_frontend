@@ -1,56 +1,108 @@
 /* Chatbot.css */
 
 .chatbot-container {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 10px;
-    border: 1px solid #ddd;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.chatbot-avatar {
+    cursor: pointer;
+}
+
+.chatbot-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.chatbot-popup {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 400px; /* Enlarge the popup card */
+    height: 500px; /* Enlarge the popup card */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 10px;
-    height: 250px;
+    display: none;
+    flex-direction: column; /* Ensure vertical layout */
 }
 
-.chatbot-messages {
-    overflow-y: auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    height: 100px;
-}
-
-.chatbot-message {
-    margin-bottom: 10px;
-}
-
-.chatbot-message.user {
-    text-align: right;
-}
-
-.chatbot-message.ai {
-    text-align: left;
-}
-
-.chatbot-input {
+.chatbot-popup.visible {
     display: flex;
-    gap: 10px;
 }
 
-.chatbot-input input {
+.chatbot-header {
+    background-color: #1c1c1e; /* Same color as page header */
+    color: white;
+    padding: 5px; /* Thinner header */
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto; /* Enable scrolling */
+    padding: 10px; /* Add padding */
+}
+
+.message {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message.assistant {
+    justify-content: flex-start;
+}
+
+.bubble {
+    max-width: 75%; /* Limit message width to 75% of the card */
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ddd; /* Add dialog frame */
+}
+
+.message.user .bubble {
+    background-color: #e0e0e0;
+}
+
+.message.assistant .bubble {
+    background-color: #f1f1f1;
+}
+
+.typing-area {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+
+input[type='text'] {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin-right: 10px;
 }
 
-.chatbot-input button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
+button {
+    padding: 10px 15px;
+    background-color: #1c1c1e;
     color: white;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.chatbot-input button:hover {
-    background-color: #0056b3;
 }

@@ -10,11 +10,11 @@
 .header {
     background-color: #1c1c1e;
     color: white;
-    padding: 7px 30px; /* Adjusted padding for a wider header */
+    padding: 5px 35px; /* Adjusted padding for a wider header */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px; /* Increased height for the header */
+    height: 70px; /* Increased height for the header */
 }
 
 .header-left {
@@ -121,13 +121,13 @@
 }
 
 .user-info-section {
-    flex: 0 1 30%; /* Adjust width to make it more centered */
+    flex: 0 1 20%; /* Reduced width to make the user info card smaller */
     padding: 20px;
 }
 
 .problem-card, .user-info {
     background-color: white; /* Ensure cards remain white */
-    padding: 30px; /* Increased padding inside the cards */
+    padding: 20px; /* Increased padding inside the cards */
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
