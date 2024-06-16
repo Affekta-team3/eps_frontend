@@ -59,3 +59,40 @@ export const submitSolution = async (submission) => {
 };
 
 // Add other mock functions as needed
+// import axios from 'axios';
+//
+// // Define the base URL of your API
+// const BASE_URL = 'https://your-backend-url/api'; // Replace with your actual backend URL
+//
+// export const fetchProblems = async () => {
+//     try {
+//         const response = await axios.get(`${BASE_URL}/problems`);
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error fetching problems:', error);
+//         throw error;
+//     }
+// };
+//
+// export const fetchProblemDetails = async (problemId) => {
+//     try {
+//         const response = await axios.get(`${BASE_URL}/problems/${problemId}`);
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error fetching problem details:', error);
+//         throw error;
+//     }
+// };
+//
+// export const submitSolution = async (submission) => {
+//     try {
+//         const response = await axios.post(`${BASE_URL}/submissions`, submission);
+//         return response.data;
+//     } catch (error) {
+//         console.error('Error submitting solution:', error);
+//         throw error;
+//     }
+// };
+//
+// // Add other functions as needed
+//
