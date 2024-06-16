@@ -1,7 +1,18 @@
 /* ProblemList.css */
 
-.problem-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.problem-card {
+    background-color: white; /* Ensure cards remain white */
+    padding: 20px; /* Increased padding inside the cards */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.problem-card h3 {
+    margin: 0;
+}
+
+.problem-card p {
+    margin: 5px 0;
 }

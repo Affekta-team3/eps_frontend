@@ -7,7 +7,7 @@ function App() {
   return (
       <Router>
           <Routes>
-              <Route path="/coding/:id" element={<CodingPage />} />
+              <Route path="/coding/:problemId" element={<CodingPage />} />
               <Route path="/" element={<ProblemListPage />} />
           </Routes>
       </Router>

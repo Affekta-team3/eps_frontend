@@ -1,30 +1,32 @@
-import React from 'react';
-import ProblemCard from './ProblemCard';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { fetchProblems } from '../services/mockService';
 import './ProblemList.css';
 
-const problems = [
-    {
-        id: 1,
-        title: 'Height Checker',
-        tags: ['Array', 'Sorting'],
-        acceptanceRate: '70%',
-        difficulty: 'Easy',
-    },
-    {
-        id: 2,
-        title: 'Another Problem',
-        tags: ['String', 'Dynamic Programming'],
-        acceptanceRate: '55%',
-        difficulty: 'Medium',
-    },
-    // Add more problems as needed
-];
-
 const ProblemList = () => {
+    const [problems, setProblems] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const getProblems = async () => {
+            const problems = await fetchProblems();
+            setProblems(problems);
+        };
+        getProblems();
+    }, []);
+
+    const handleProblemClick = (problemId) => {
+        navigate(`/coding/${problemId}`);
+    };
+
     return (
-        <div className="problem-list">
-            {problems.map(problem => (
-                <ProblemCard key={problem.id} problem={problem} />
+        <div>
+            {problems.map((problem) => (
+                <div key={problem.problemId} className="problem-card" onClick={() => handleProblemClick(problem.problemId)}>
+                    <h3>{problem.title}</h3>
+                    <p>Difficulty: {problem.difficulty}</p>
+                    <p>Acceptance Rate: {Math.floor(Math.random() * 100)}%</p>
+                </div>
             ))}
         </div>
     );
