@@ -31,12 +31,14 @@ const mockSubmissions = [
     }
 ];
 
+// Fetch a list of all problems
 export const fetchProblems = async () => {
     return new Promise((resolve) => {
         setTimeout(() => resolve(mockProblems), 500); // Simulate network delay
     });
 };
 
+// Fetch details of a specific problem
 export const fetchProblemDetails = async (problemId) => {
     return new Promise((resolve) => {
         const problem = mockProblems.find(p => p.problemId === problemId);
@@ -44,6 +46,7 @@ export const fetchProblemDetails = async (problemId) => {
     });
 };
 
+// Submit a solution for a problem
 export const submitSolution = async (submission) => {
     return new Promise((resolve) => {
         const newSubmission = {
@@ -58,41 +61,26 @@ export const submitSolution = async (submission) => {
     });
 };
 
+// Evaluate the submitted code
+export const evaluateSolution = async (submission) => {
+    return new Promise((resolve) => {
+        const evaluationResult = {
+            submissionId: submission.submissionId,
+            status: "Accepted",
+            result: "Success",
+            runtime: "2ms",
+            memory: "12MB"
+        };
+        setTimeout(() => resolve(evaluationResult), 500); // Simulate network delay
+    });
+};
+
+// Get the status of a specific submission
+export const fetchSubmissionStatus = async (submissionId) => {
+    return new Promise((resolve) => {
+        const submission = mockSubmissions.find(s => s.submissionId === submissionId);
+        setTimeout(() => resolve(submission), 500); // Simulate network delay
+    });
+};
+
 // Add other mock functions as needed
-// import axios from 'axios';
-//
-// // Define the base URL of your API
-// const BASE_URL = 'https://your-backend-url/api'; // Replace with your actual backend URL
-//
-// export const fetchProblems = async () => {
-//     try {
-//         const response = await axios.get(`${BASE_URL}/problems`);
-//         return response.data;
-//     } catch (error) {
-//         console.error('Error fetching problems:', error);
-//         throw error;
-//     }
-// };
-//
-// export const fetchProblemDetails = async (problemId) => {
-//     try {
-//         const response = await axios.get(`${BASE_URL}/problems/${problemId}`);
-//         return response.data;
-//     } catch (error) {
-//         console.error('Error fetching problem details:', error);
-//         throw error;
-//     }
-// };
-//
-// export const submitSolution = async (submission) => {
-//     try {
-//         const response = await axios.post(`${BASE_URL}/submissions`, submission);
-//         return response.data;
-//     } catch (error) {
-//         console.error('Error submitting solution:', error);
-//         throw error;
-//     }
-// };
-//
-// // Add other functions as needed
-//
