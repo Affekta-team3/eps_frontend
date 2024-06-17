@@ -83,11 +83,11 @@ const CodingPage = () => {
                     <div className="card">
                         <ProblemDetails problemId={problemId} />
                     </div>
-                    {activeTab === 'Coding' && (
-                        <div className="card test-result-section">
-                            <TestResultSection result={testResult} />
-                        </div>
-                    )}
+
+                    <div className="card test-result-section">
+                        <TestResultSection result={testResult} />
+                    </div>
+
                 </div>
                 <div className="coding-side">
                     {activeTab === 'Coding' && (
