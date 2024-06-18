@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchProblems } from '../services/mockService';
+// import { fetchProblems } from '../services/mockService';
+import { fetchProblems } from '../services/apiService'
 import './ProblemList.css';
 
 const ProblemList = () => {
@@ -11,6 +12,7 @@ const ProblemList = () => {
         const getProblems = async () => {
             const problems = await fetchProblems();
             setProblems(problems);
+            console.log(problems)
         };
         getProblems();
     }, []);
@@ -22,7 +24,7 @@ const ProblemList = () => {
     return (
         <div>
             {problems.map((problem) => (
-                <div key={problem.problemId} className="problem-card" onClick={() => handleProblemClick(problem.problemId)}>
+                <div key={problem.problem_id} className="problem-card" onClick={() => handleProblemClick(problem.problem_id)}>
                     <h3>{problem.title}</h3>
                     <p>Difficulty: {problem.difficulty}</p>
                     <p>Acceptance Rate: {Math.floor(Math.random() * 100)}%</p>

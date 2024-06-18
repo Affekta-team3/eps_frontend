@@ -29,6 +29,7 @@ const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti }) => {
     };
 
     const handleSubmit = () => {
+        console.log(code)
         onSubmit(code);
         setActiveTab('Result');
         triggerConfetti();

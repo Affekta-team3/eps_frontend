@@ -8,7 +8,7 @@ import ResultSection from '../components/ResultSection';
 import TestResultSection from '../components/TestResultSection';
 import Confetti from '../components/Confetti';
 import Chatbot from '../components/Chatbot';
-import { submitSolution, evaluateSolution, fetchSubmissionStatus } from '../services/mockService'; // Import evaluateSolution
+import { submitSolution, evaluateSolution, fetchSubmissionStatus } from '../services/apiService'; // Import evaluateSolution
 import './CodingPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -30,14 +30,15 @@ const CodingPage = () => {
         const submission = {
             problemId: problemId,
             userId: 'user1',
-            language: 'javascript',
+            language: 'python',
             sourceCode: code
         };
         const response = await submitSolution(submission);
-        const evaluation = await evaluateSolution(response);
-        setResult(evaluation);
-        console.log(evaluation)
-        setActiveTab('Result');
+        console.log(response)
+        // const evaluation = await evaluateSolution(response);
+        // setResult(evaluation);
+        // console.log(evaluation)
+        // setActiveTab('Result');
         triggerConfetti();
     };
 

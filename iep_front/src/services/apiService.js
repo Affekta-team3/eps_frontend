@@ -3,12 +3,26 @@
 import axios from 'axios';
 
 // Define the base URL of your API
-const BASE_URL = 'https://carl-test.azurewebsites.net/api'; // Replace with your actual backend URL
+const BASE_URL = 'https://team3-webapp-eps.azurewebsites.net/api'; // Replace with your actual backend URL
+
+const parseResponseData = (data) => {
+    if (typeof data === 'string') {
+        try {
+            return JSON.parse(data);
+        } catch (error) {
+            console.error('Error parsing response data:', error);
+            throw error;
+        }
+    }
+    return data;
+};
+
 
 // Fetch a list of all problems
 export const fetchProblems = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/problems`);
+        console.log(response)
         return response.data;
     } catch (error) {
         console.error('Error fetching problems:', error);
@@ -20,7 +34,8 @@ export const fetchProblems = async () => {
 export const fetchProblemDetails = async (problemId) => {
     try {
         const response = await axios.get(`${BASE_URL}/problems/${problemId}`);
-        return response.data;
+        console.log(parseResponseData(response.data))
+        return parseResponseData(response.data);
     } catch (error) {
         console.error('Error fetching problem details:', error);
         throw error;
@@ -31,6 +46,7 @@ export const fetchProblemDetails = async (problemId) => {
 export const submitSolution = async (submission) => {
     try {
         const response = await axios.post(`${BASE_URL}/submissions`, submission);
+        console.log(response.data)
         return response.data;
     } catch (error) {
         console.error('Error submitting solution:', error);
