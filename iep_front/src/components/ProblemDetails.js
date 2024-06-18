@@ -1,21 +1,32 @@
 // src/components/ProblemDetails.js
 import React, { useEffect, useState } from 'react';
+import { Box, Heading, Text, SkeletonText } from '@chakra-ui/react';
 import { fetchProblemDetails } from '../services/apiService';
-import { Box, Heading, Text } from '@chakra-ui/react';
 
 const ProblemDetails = ({ problemId }) => {
     const [problem, setProblem] = useState(null);
+    const [loading, setLoading] = useState(true); // Add loading state
 
     useEffect(() => {
         const getProblemDetails = async () => {
-            const details = await fetchProblemDetails(problemId);
-            setProblem(details);
+            try {
+                const details = await fetchProblemDetails(problemId);
+                setProblem(details);
+            } catch (error) {
+                console.error('Error fetching problem details:', error);
+            } finally {
+                setLoading(false); // Set loading to false after fetching
+            }
         };
         getProblemDetails();
     }, [problemId]);
 
-    if (!problem) {
-        return <Box>Loading...</Box>;
+    if (loading) {
+        return (
+            <Box padding="6" bg="white">
+                <SkeletonText mt="4" noOfLines={4} spacing="4" />
+            </Box>
+        );
     }
 
     return (

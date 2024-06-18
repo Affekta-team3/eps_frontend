@@ -1,23 +1,42 @@
-import React, { useState } from 'react';
+// src/pages/CodingPage.js
+
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Box, SkeletonText } from '@chakra-ui/react';
 import ProblemDetails from '../components/ProblemDetails';
 import CodeEditor from '../components/CodeEditor';
 import ResultSection from '../components/ResultSection';
 import TestResultSection from '../components/TestResultSection';
 import Confetti from '../components/Confetti';
 import Chatbot from '../components/Chatbot';
-import { submitSolution, evaluateSolution } from '../services/apiService';
+import { submitSolution, evaluateSolution, fetchProblemDetails } from '../services/apiService';
 import './CodingPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const CodingPage = () => {
-    const { problemId } = useParams();
+    const { problemId } = useParams(); // Use useParams to get problemId
     const [activeTab, setActiveTab] = useState('Coding');
     const [result, setResult] = useState('');
     const [testResult, setTestResult] = useState('');
     const [showConfetti, setShowConfetti] = useState(false);
+    const [problemDetails, setProblemDetails] = useState(null); // Add problem details state
+    const [loading, setLoading] = useState(true); // Add loading state
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const getProblemDetails = async () => {
+            try {
+                const details = await fetchProblemDetails(problemId);
+                setProblemDetails(details);
+            } catch (error) {
+                console.error('Error fetching problem details:', error);
+            } finally {
+                setLoading(false); // Set loading to false after fetching
+            }
+        };
+        getProblemDetails();
+    }, [problemId]);
 
     const handleBackClick = () => {
         navigate('/');
@@ -60,7 +79,7 @@ const CodingPage = () => {
 
     const triggerConfetti = () => {
         setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 3000);
+        setTimeout(() => setShowConfetti(false), 3000); // Remove confetti after 3 seconds
     };
 
     return (
@@ -89,7 +108,14 @@ const CodingPage = () => {
             <div className="content">
                 <div className="description-side">
                     <div className="card">
-                        <ProblemDetails problemId={problemId} />
+                        {loading ? (
+                            // Display skeleton text while loading
+                            <Box padding="6" bg="white">
+                                <SkeletonText mt="4" noOfLines={4} spacing="4" />
+                            </Box>
+                        ) : (
+                            <ProblemDetails problemId={problemId} details={problemDetails} />
+                        )}
                     </div>
                     <div className="card test-result-section">
                         <TestResultSection result={testResult} />

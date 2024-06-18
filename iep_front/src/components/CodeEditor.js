@@ -34,14 +34,6 @@ const CodeEditor = ({ onSubmit, onTest }) => {
         window.addEventListener('resize', () => editor.layout());
     };
 
-    useEffect(() => {
-        return () => {
-            if (editorRef.current) {
-                window.removeEventListener('resize', () => editorRef.current.layout());
-            }
-        };
-    }, []);
-
     return (
         <div className="code-editor">
             <div className="monaco-editor-container">
