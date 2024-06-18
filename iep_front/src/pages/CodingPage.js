@@ -41,8 +41,9 @@ const CodingPage = () => {
             setActiveTab('Result');
             triggerConfetti();
         } else {
-            setTestResult('Submission failed. Please try again.');
-            setResult('Submission failed. Please try again.');
+            setActiveTab('Result');
+            // setTestResult('Submission failed. Please try again.');
+            setResult(evaluation);
         }
     };
 
@@ -51,7 +52,7 @@ const CodingPage = () => {
         if (response.includes('PASS')) {
             setTestResult('Test Successful');
         } else {
-            setTestResult('Test Failed');
+            setTestResult(response);
         }
     };
 

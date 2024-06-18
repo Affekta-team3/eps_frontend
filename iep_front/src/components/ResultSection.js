@@ -1,27 +1,22 @@
 import React from 'react';
 
 const ResultSection = ({ result }) => {
-    // Parse the result string to extract runtime and memory
-    const parseResult = (result) => {
-        const statusMatch = result.match(/Status:\s*(.*)/);
-        const runtimeMatch = result.match(/Runtime:\s*(.*)/);
-        const memoryMatch = result.match(/Memory:\s*(.*)/);
-
-        return {
-            status: statusMatch ? statusMatch[1] : '',
-            runtime: runtimeMatch ? runtimeMatch[1] : '',
-            memory: memoryMatch ? memoryMatch[1] : '',
-        };
-    };
-
-    const parsedResult = parseResult(result);
+    const resultLines = result.split('\n');
+    const resultObj = resultLines.reduce((acc, line) => {
+        const [key, value] = line.split(':');
+        if (key && value) {
+            acc[key.trim()] = value.trim();
+        }
+        return acc;
+    }, {});
 
     return (
         <div className="result-section">
             <h3>Full Result</h3>
-            <p>Status: {parsedResult.status}</p>
-            <p>Runtime: {parsedResult.runtime}</p>
-            <p>Memory: {parsedResult.memory}</p>
+            <p>Status: {resultObj.Status}</p>
+            <p>Runtime: {resultObj.Runtime}</p>
+            <p>Memory: {resultObj.Memory}</p>
+            <p>{result}</p> {/* This line will display the raw response in case of failure */}
         </div>
     );
 };
