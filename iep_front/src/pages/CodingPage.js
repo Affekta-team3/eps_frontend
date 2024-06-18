@@ -1,5 +1,3 @@
-// src/pages/CodingPage.js
-
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProblemDetails from '../components/ProblemDetails';
@@ -8,7 +6,7 @@ import ResultSection from '../components/ResultSection';
 import TestResultSection from '../components/TestResultSection';
 import Confetti from '../components/Confetti';
 import Chatbot from '../components/Chatbot';
-import { submitSolution, evaluateSolution, fetchSubmissionStatus } from '../services/apiService'; // Import evaluateSolution
+import { submitSolution, evaluateSolution } from '../services/apiService';
 import './CodingPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -26,25 +24,35 @@ const CodingPage = () => {
     };
 
     const handleSubmission = async (code) => {
-        // Mock submission result
-        const submission = {
-            problemId: problemId,
-            userId: 'user1',
-            language: 'python',
-            sourceCode: code
-        };
-        const response = await submitSolution(submission);
-        console.log(response)
-        // const evaluation = await evaluateSolution(response);
-        // setResult(evaluation);
-        // console.log(evaluation)
-        // setActiveTab('Result');
-        triggerConfetti();
+        const evaluation = await evaluateSolution({ code_text: code, problem_id: problemId });
+        if (evaluation.includes('PASS')) {
+            console.log(evaluation);
+            const [status, runtime, memory] = evaluation.split('\n').map(line => line.split(':')[1]);
+            const submission = {
+                problemId: problemId,
+                code_text: code,
+                status: "0",
+                result: "Accepted",
+                runtime: runtime,
+                memory: memory
+            };
+            const response = await submitSolution(submission);
+            setResult(`Status: PASS\nRuntime: ${runtime}\nMemory: ${memory}`);
+            setActiveTab('Result');
+            triggerConfetti();
+        } else {
+            setTestResult('Submission failed. Please try again.');
+            setResult('Submission failed. Please try again.');
+        }
     };
 
-    const handleTest = () => {
-        const mockTestResult = 'Test Successful';
-        setTestResult(mockTestResult);
+    const handleTest = async (code) => {
+        const response = await evaluateSolution({ code_text: code, problem_id: problemId });
+        if (response.includes('PASS')) {
+            setTestResult('Test Successful');
+        } else {
+            setTestResult('Test Failed');
+        }
     };
 
     const handleTabClick = (tab) => {
@@ -84,11 +92,9 @@ const CodingPage = () => {
                     <div className="card">
                         <ProblemDetails problemId={problemId} />
                     </div>
-
                     <div className="card test-result-section">
                         <TestResultSection result={testResult} />
                     </div>
-
                 </div>
                 <div className="coding-side">
                     {activeTab === 'Coding' && (

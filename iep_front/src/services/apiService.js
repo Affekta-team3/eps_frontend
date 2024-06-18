@@ -22,7 +22,6 @@ const parseResponseData = (data) => {
 export const fetchProblems = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/problems`);
-        console.log(response)
         return response.data;
     } catch (error) {
         console.error('Error fetching problems:', error);
@@ -34,7 +33,6 @@ export const fetchProblems = async () => {
 export const fetchProblemDetails = async (problemId) => {
     try {
         const response = await axios.get(`${BASE_URL}/problems/${problemId}`);
-        console.log(parseResponseData(response.data))
         return parseResponseData(response.data);
     } catch (error) {
         console.error('Error fetching problem details:', error);

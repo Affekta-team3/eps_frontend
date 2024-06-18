@@ -12,7 +12,6 @@ const ProblemList = () => {
         const getProblems = async () => {
             const problems = await fetchProblems();
             setProblems(problems);
-            console.log(problems)
         };
         getProblems();
     }, []);
