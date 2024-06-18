@@ -2,31 +2,28 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
-import { Button } from '@chakra-ui/react';
 import './CodeEditor.css';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@chakra-ui/react'; // Import Button from Chakra UI
 
-const CodeEditor = ({ onSubmit, onTest }) => {
+const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti, handleSend, isSubmitting, isTesting }) => {
     const [code, setCode] = useState(`class Solution:
     def problem(self):
         # Write your code here`);
-    const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
-    const [isLoadingTest, setIsLoadingTest] = useState(false);
+    const [output, setOutput] = useState('');
     const editorRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleEditorChange = (value) => {
         setCode(value);
     };
 
-    const handleSubmit = async () => {
-        setIsLoadingSubmit(true);
-        await onSubmit(code);
-        setIsLoadingSubmit(false);
+    const handleSubmit = () => {
+        onSubmit(code);
     };
 
-    const handleTest = async () => {
-        setIsLoadingTest(true);
-        await onTest(code);
-        setIsLoadingTest(false);
+    const handleTest = () => {
+        onTest(code);
     };
 
     const handleEditorDidMount = (editor) => {
@@ -38,8 +35,8 @@ const CodeEditor = ({ onSubmit, onTest }) => {
         <div className="code-editor">
             <div className="monaco-editor-container">
                 <Editor
-                    height="100%"
-                    width="100%"
+                    height="100%" // Ensure the editor takes up the full height of its container
+                    width="100%" // Ensure the editor takes up the full width of its container
                     defaultLanguage="python"
                     defaultValue={code}
                     value={code}
@@ -54,28 +51,27 @@ const CodeEditor = ({ onSubmit, onTest }) => {
             </div>
             <div className="button-group">
                 <Button
+                    className="btn"
                     onClick={handleTest}
-                    isLoading={isLoadingTest}
+                    isLoading={isTesting}
                     loadingText="Testing"
-                    bg="black"
-                    color="white"
-                    _hover={{ bg: 'gray.700' }}
-                    _active={{ bg: 'gray.800' }}
+                    colorScheme="teal"
+                    variant="solid"
                 >
                     Test
                 </Button>
                 <Button
+                    className="btn"
                     onClick={handleSubmit}
-                    isLoading={isLoadingSubmit}
+                    isLoading={isSubmitting}
                     loadingText="Submitting"
-                    bg="black"
-                    color="white"
-                    _hover={{ bg: 'gray.700' }}
-                    _active={{ bg: 'gray.800' }}
+                    colorScheme="teal"
+                    variant="solid"
                 >
                     Submit
                 </Button>
             </div>
+            <pre>{output}</pre>
         </div>
     );
 };

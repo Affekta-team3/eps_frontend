@@ -111,5 +111,15 @@ button {
     border-radius: 4px;
     cursor: pointer;
     background-color: rgb(131, 178, 212); /* Adjust header color */
-
 }
+
+.new-message-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+}
+

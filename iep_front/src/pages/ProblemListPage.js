@@ -1,11 +1,12 @@
 // src/pages/ProblemListPage.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
 import { BellIcon, SettingsIcon } from '@chakra-ui/icons';
 import SearchBar from '../components/SearchBar';
 import ProblemList from '../components/ProblemList';
 import UserInfo from '../components/UserInfo';
 import './ProblemListPage.css';
+import Chatbot from "../components/Chatbot";
 
 const ProblemListPage = () => {
     // Mock user data
@@ -16,6 +17,10 @@ const ProblemListPage = () => {
         expToLevelUp: 200,
         coins: 50,
     };
+
+    const [hasNewMessage, setHasNewMessage] = useState(false); // Manage new message state
+
+    const initialPrompt = "You are an assistant helping a user to learn coding. This website provides coding problems to solve, a community to interact with, and competitions to participate in. Keep your responses brief and concise to avoid confusing the user.";
 
     return (
         <Box className="problem-list-page">
@@ -56,6 +61,7 @@ const ProblemListPage = () => {
                     <UserInfo user={user} />
                 </Box>
             </Flex>
+            <Chatbot initialPrompt={initialPrompt} hasNewMessage={hasNewMessage} setHasNewMessage={setHasNewMessage} />
         </Box>
     );
 };
