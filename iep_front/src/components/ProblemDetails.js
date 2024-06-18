@@ -1,5 +1,7 @@
+// src/components/ProblemDetails.js
 import React, { useEffect, useState } from 'react';
 import { fetchProblemDetails } from '../services/apiService';
+import { Box, Heading, Text } from '@chakra-ui/react';
 
 const ProblemDetails = ({ problemId }) => {
     const [problem, setProblem] = useState(null);
@@ -13,26 +15,20 @@ const ProblemDetails = ({ problemId }) => {
     }, [problemId]);
 
     if (!problem) {
-        return <div>Loading...</div>;
+        return <Box>Loading...</Box>;
     }
 
     return (
-        <div>
-            <h2>{problem.title}</h2>
-            <p>{problem.description}</p>
-            <h3>Input Format:</h3>
-            <p>{problem.input_format}</p>
-            <h3>Output Format:</h3>
-            <p>{problem.output_format}</p>
-            {/*<h3>Samples:</h3>*/}
-            {/*<ul>*/}
-            {/*    {problem.samples.map((sample, index) => (*/}
-            {/*        <li key={index}>{sample}</li>*/}
-            {/*    ))}*/}
-            {/*</ul>*/}
-            <h3>Difficulty:</h3>
-            <p>{problem.difficulty}</p>
-        </div>
+        <Box>
+            <Heading as="h2" size="lg" mb="10px">{problem.title}</Heading>
+            <Text fontSize="md" mb="10px">{problem.description}</Text>
+            <Heading as="h3" size="md" mt="20px" mb="10px">Input Format:</Heading>
+            <Text fontSize="md" mb="10px">{problem.input_format}</Text>
+            <Heading as="h3" size="md" mt="20px" mb="10px">Output Format:</Heading>
+            <Text fontSize="md" mb="10px">{problem.output_format}</Text>
+            <Heading as="h3" size="md" mt="20px" mb="10px">Difficulty:</Heading>
+            <Text fontSize="md" mb="10px">{problem.difficulty}</Text>
+        </Box>
     );
 };
 

@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const CodingPage = () => {
-    const { problemId } = useParams(); // Use useParams to get problemId
+    const { problemId } = useParams();
     const [activeTab, setActiveTab] = useState('Coding');
     const [result, setResult] = useState('');
     const [testResult, setTestResult] = useState('');
@@ -26,7 +26,6 @@ const CodingPage = () => {
     const handleSubmission = async (code) => {
         const evaluation = await evaluateSolution({ code_text: code, problem_id: problemId });
         if (evaluation.includes('PASS')) {
-            console.log(evaluation);
             const [status, runtime, memory] = evaluation.split('\n').map(line => line.split(':')[1]);
             const submission = {
                 problemId: problemId,
@@ -42,7 +41,6 @@ const CodingPage = () => {
             triggerConfetti();
         } else {
             setActiveTab('Result');
-            // setTestResult('Submission failed. Please try again.');
             setResult(evaluation);
         }
     };
@@ -52,7 +50,7 @@ const CodingPage = () => {
         if (response.includes('PASS')) {
             setTestResult('Test Successful');
         } else {
-            setTestResult(response);
+            setTestResult('Test Failed');
         }
     };
 
@@ -62,7 +60,7 @@ const CodingPage = () => {
 
     const triggerConfetti = () => {
         setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 3000); // Remove confetti after 3 seconds
+        setTimeout(() => setShowConfetti(false), 3000);
     };
 
     return (

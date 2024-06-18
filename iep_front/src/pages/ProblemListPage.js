@@ -1,9 +1,11 @@
+// src/pages/ProblemListPage.js
 import React from 'react';
+import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
+import { BellIcon, SettingsIcon } from '@chakra-ui/icons';
+import SearchBar from '../components/SearchBar';
 import ProblemList from '../components/ProblemList';
 import UserInfo from '../components/UserInfo';
 import './ProblemListPage.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faCog, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const ProblemListPage = () => {
     // Mock user data
@@ -16,40 +18,45 @@ const ProblemListPage = () => {
     };
 
     return (
-        <div className="problem-list-page">
-            <header className="header">
-                <div className="header-left">
-                    <div className="logo">EPS</div>
-                    <nav className="navbar">
-                        <ul className="nav-links">
-                            <li className="nav-item active">Problems</li>
-                            <li className="nav-item">Community</li>
-                            <li className="nav-item">Competition</li>
-                        </ul>
-                    </nav>
-                </div>
-                <div className="header-right">
-                    <div className="search-bar">
-                        <FontAwesomeIcon icon={faSearch} />
-                        <input type="text" placeholder="Search..." />
-                    </div>
-                    <div className="notifications">
-                        <FontAwesomeIcon icon={faBell} />
-                    </div>
-                    <div className="config">
-                        <FontAwesomeIcon icon={faCog} />
-                    </div>
-                </div>
-            </header>
-            <div className="content">
-                <div className="problem-list-section">
+        <Box className="problem-list-page">
+            <Flex className="header" align="center" justify="space-between" p="5px 35px" bg="#1c1c1e" color="white" height="70px">
+                <Flex align="center">
+                    <Heading size="lg" mr="30px">EPS</Heading>
+                    <Flex className="navbar">
+                        <Box className="nav-links">
+                            <Text as="span" className="nav-item active" mr="30px">Problems</Text>
+                            <Text as="span" className="nav-item" mr="30px">Community</Text>
+                            <Text as="span" className="nav-item">Competition</Text>
+                        </Box>
+                    </Flex>
+                </Flex>
+                <Flex align="center">
+                    <SearchBar />
+                    <IconButton
+                        icon={<BellIcon boxSize={6} />}
+                        variant="ghost"
+                        colorScheme="whiteAlpha"
+                        aria-label="Notifications"
+                        ml="20px"
+                    />
+                    <IconButton
+                        icon={<SettingsIcon boxSize={6} />}
+                        variant="ghost"
+                        colorScheme="whiteAlpha"
+                        aria-label="Settings"
+                        ml="20px"
+                    />
+                </Flex>
+            </Flex>
+            <Flex className="content" flexGrow="1" p="20px 50px" justify="center">
+                <Box className="problem-list-section" flex="0 1 60%" p="20px" overflowY="auto" borderRight="1px solid #ddd">
                     <ProblemList />
-                </div>
-                <div className="user-info-section">
+                </Box>
+                <Box className="user-info-section" flex="0 1 20%" p="20px">
                     <UserInfo user={user} />
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Flex>
+        </Box>
     );
 };
 
