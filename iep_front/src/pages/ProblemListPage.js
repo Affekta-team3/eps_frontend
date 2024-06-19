@@ -1,5 +1,4 @@
-// src/pages/ProblemListPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/react';
 import { BellIcon, SettingsIcon } from '@chakra-ui/icons';
 import SearchBar from '../components/SearchBar';
@@ -7,6 +6,7 @@ import ProblemList from '../components/ProblemList';
 import UserInfo from '../components/UserInfo';
 import './ProblemListPage.css';
 import Chatbot from "../components/Chatbot";
+import { useChatbot } from '../context/ChatbotContext'; // Import useChatbot
 
 const ProblemListPage = () => {
     // Mock user data
@@ -18,9 +18,13 @@ const ProblemListPage = () => {
         coins: 50,
     };
 
-    const [hasNewMessage, setHasNewMessage] = useState(false); // Manage new message state
+    const { handleSend, clearMessages, setHasNewMessage } = useChatbot(); // Use the context
 
     const initialPrompt = "You are an assistant helping a user to learn coding. This website provides coding problems to solve, a community to interact with, and competitions to participate in. Keep your responses brief and concise to avoid confusing the user.";
+
+    useEffect(() => {
+        handleSend(initialPrompt, true); // Send the initial prompt and restart the conversation
+    }, []);
 
     return (
         <Box className="problem-list-page">
@@ -61,7 +65,7 @@ const ProblemListPage = () => {
                     <UserInfo user={user} />
                 </Box>
             </Flex>
-            <Chatbot initialPrompt={initialPrompt} hasNewMessage={hasNewMessage} setHasNewMessage={setHasNewMessage} />
+            <Chatbot />
         </Box>
     );
 };

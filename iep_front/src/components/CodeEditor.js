@@ -1,35 +1,31 @@
-// src/components/CodeEditor.js
-
 import React, { useState, useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
+import { Button, Spinner } from '@chakra-ui/react';
 import './CodeEditor.css';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@chakra-ui/react'; // Import Button from Chakra UI
 
-const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti, handleSend, isSubmitting, isTesting }) => {
+const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti, isSubmitting, isTesting }) => {
     const [code, setCode] = useState(`class Solution:
     def problem(self):
         # Write your code here`);
-    const [output, setOutput] = useState('');
     const editorRef = useRef(null);
-    const navigate = useNavigate();
 
     const handleEditorChange = (value) => {
         setCode(value);
-    };
-
-    const handleSubmit = () => {
-        onSubmit(code);
-    };
-
-    const handleTest = () => {
-        onTest(code);
     };
 
     const handleEditorDidMount = (editor) => {
         editorRef.current = editor;
         window.addEventListener('resize', () => editor.layout());
     };
+
+    useEffect(() => {
+        return () => {
+            if (editorRef.current) {
+                window.removeEventListener('resize', () => editorRef.current.layout());
+            }
+        };
+    }, []);
 
     return (
         <div className="code-editor">
@@ -50,28 +46,13 @@ const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti, handleSen
                 />
             </div>
             <div className="button-group">
-                <Button
-                    className="btn"
-                    onClick={handleTest}
-                    isLoading={isTesting}
-                    loadingText="Testing"
-                    colorScheme="teal"
-                    variant="solid"
-                >
-                    Test
+                <Button onClick={() => onTest(code)} isLoading={isTesting} loadingText="Testing" variant="solid" colorScheme="blue">
+                    {isTesting ? <Spinner size="sm" /> : "Test"}
                 </Button>
-                <Button
-                    className="btn"
-                    onClick={handleSubmit}
-                    isLoading={isSubmitting}
-                    loadingText="Submitting"
-                    colorScheme="teal"
-                    variant="solid"
-                >
-                    Submit
+                <Button onClick={() => onSubmit(code)} isLoading={isSubmitting} loadingText="Submitting" variant="solid" colorScheme="green">
+                    {isSubmitting ? <Spinner size="sm" /> : "Submit"}
                 </Button>
             </div>
-            <pre>{output}</pre>
         </div>
     );
 };

@@ -1,5 +1,3 @@
-// src/pages/CodingPage.js
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, SkeletonText } from '@chakra-ui/react';
@@ -13,7 +11,7 @@ import { submitSolution, evaluateSolution, fetchProblemDetails } from '../servic
 import './CodingPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import axios from "axios";
+import { useChatbot } from '../context/ChatbotContext'; // Import useChatbot
 
 const CodingPage = () => {
     const { problemId } = useParams(); // Use useParams to get problemId
@@ -23,16 +21,17 @@ const CodingPage = () => {
     const [showConfetti, setShowConfetti] = useState(false);
     const [problemDetails, setProblemDetails] = useState(null); // Add problem details state
     const [loading, setLoading] = useState(true); // Add loading state
-    const [hasNewMessage, setHasNewMessage] = useState(false); // Manage new message state
     const [isSubmitting, setIsSubmitting] = useState(false); // Add state for Submit button loading
     const [isTesting, setIsTesting] = useState(false); // Add state for Test button loading
     const navigate = useNavigate();
+    const { handleSend, clearMessages, setHasNewMessage, hasNewMessage } = useChatbot(); // Use the context
 
     useEffect(() => {
         const getProblemDetails = async () => {
             try {
                 const details = await fetchProblemDetails(problemId);
                 setProblemDetails(details);
+                handleSend(constructInitialPrompt(details), true); // Send the initial prompt and restart the conversation
             } catch (error) {
                 console.error('Error fetching problem details:', error);
             } finally {
@@ -67,7 +66,7 @@ const CodingPage = () => {
             } else {
                 setActiveTab('Result');
                 setResult(evaluation);
-                handleSend(`Submission failed for problem ${problemId}. Details: ${evaluation}`);
+                await handleSend(`Submission failed for problem ${problemId}. Details: ${evaluation}`);
             }
         } catch (error) {
             console.error('Error during submission:', error);
@@ -109,31 +108,13 @@ const CodingPage = () => {
         - Input Format: ${details.input_format}
         - Output Format: ${details.output_format}
         - Difficulty: ${details.difficulty}
-        If the user asks for tips, you shouldn't say too much, you should give only a little tip once.
-        If you receive failed submission details, tell the user where they are wrong.
+        If the user asks for tips, you shouldn't say too much; you should give only a little tip once.
+        If you receive a failed submission detail, tell the user where it is wrong. 
         Start by saying hi briefly.
         `;
     };
 
     const initialPrompt = problemDetails ? constructInitialPrompt(problemDetails) : '';
-
-    // Define handleSend to pass to CodeEditor
-    const handleSend = async (messageText) => {
-        try {
-            const response = await axios.post('http://localhost:11434/api/chat', {
-                model: 'llama3',
-                messages: [
-                    { role: 'system', content: messageText },
-                ],
-                stream: false,
-            });
-
-            const aiResponse = response.data.message;
-            setHasNewMessage(true); // Set new message state to true
-        } catch (error) {
-            console.error('Error sending message to chatbot:', error);
-        }
-    };
 
     return (
         <div className="coding-page">
@@ -177,15 +158,7 @@ const CodingPage = () => {
                 <div className="coding-side">
                     {activeTab === 'Coding' && (
                         <div className="card">
-                            <CodeEditor
-                                onSubmit={handleSubmission}
-                                onTest={handleTest}
-                                setActiveTab={setActiveTab}
-                                triggerConfetti={triggerConfetti}
-                                handleSend={handleSend}
-                                isSubmitting={isSubmitting} // Pass loading state to CodeEditor
-                                isTesting={isTesting} // Pass loading state to CodeEditor
-                            />
+                            <CodeEditor onSubmit={handleSubmission} onTest={handleTest} setActiveTab={setActiveTab} triggerConfetti={triggerConfetti} isSubmitting={isSubmitting} isTesting={isTesting} />
                         </div>
                     )}
                     {activeTab === 'Result' && (

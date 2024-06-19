@@ -4,13 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
+import {ChatbotProvider} from "./context/ChatbotContext";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <ChatbotProvider>
     <App />
-  </React.StrictMode>
+  </ChatbotProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

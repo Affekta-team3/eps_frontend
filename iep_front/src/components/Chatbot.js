@@ -1,43 +1,20 @@
 // src/components/Chatbot.js
 
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import './Chatbot.css';
 import { Box } from '@chakra-ui/react';
+import './Chatbot.css';
+import { useChatbot } from '../context/ChatbotContext';
 
-const Chatbot = ({ initialPrompt, hasNewMessage, setHasNewMessage }) => {
-    const [messages, setMessages] = useState([]);
+const Chatbot = () => {
+    const { messages, handleSend, hasNewMessage, setHasNewMessage } = useChatbot();
     const [input, setInput] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const messagesEndRef = useRef(null);
 
-    const handleSend = async (messageText) => {
-        const newMessages = [...messages, { from: 'user', text: messageText }];
-        setMessages(newMessages);
-        setInput('');
-
-        try {
-            const response = await axios.post('http://localhost:11434/api/chat', {
-                model: 'llama3',
-                messages: [
-                    ...newMessages.map(msg => ({ role: msg.from, content: msg.text })),
-                    { role: 'user', content: messageText },
-                ],
-                stream: false,
-            });
-
-            const aiResponse = response.data.message;
-            setMessages([...newMessages, { from: aiResponse.role, text: aiResponse.content }]);
-            setHasNewMessage(true); // Set new message state to true
-        } catch (error) {
-            console.error('Error fetching AI response:', error);
-            setMessages([...newMessages, { from: 'assistant', text: 'Sorry, something went wrong.' }]);
-        }
-    };
-
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleSend(input);
+            setInput('');
         }
     };
 
@@ -54,29 +31,6 @@ const Chatbot = ({ initialPrompt, hasNewMessage, setHasNewMessage }) => {
         scrollToBottom();
     }, [messages]);
 
-    useEffect(() => {
-        // Send the initial prompt when the component mounts
-        if (initialPrompt) {
-            const sendInitialPrompt = async () => {
-                try {
-                    const response = await axios.post('http://localhost:11434/api/chat', {
-                        model: 'llama3',
-                        messages: [{ role: 'system', content: initialPrompt }],
-                        stream: false,
-                    });
-
-                    const aiResponse = response.data.message;
-                    setMessages([{ from: aiResponse.role, text: aiResponse.content }]);
-                    setHasNewMessage(true); // Set new message state to true
-                } catch (error) {
-                    console.error('Error sending initial prompt:', error);
-                }
-            };
-
-            sendInitialPrompt();
-        }
-    }, [initialPrompt]);
-
     return (
         <div className="chatbot-container">
             <div className={`chatbot-avatar ${isOpen ? 'hidden' : ''}`} onClick={toggleChatbot}>
@@ -89,7 +43,7 @@ const Chatbot = ({ initialPrompt, hasNewMessage, setHasNewMessage }) => {
                 </div>
                 <div className="chatbot-body">
                     <div className="messages">
-                        {messages.map((msg, index) => (
+                        {messages.slice(1).map((msg, index) => ( // Ignore the initial prompt message
                             <div key={index} className={`message ${msg.from}`}>
                                 <div className="bubble">{msg.text}</div>
                             </div>
