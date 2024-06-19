@@ -9,7 +9,6 @@
 
 .chatbot-avatar {
     cursor: pointer;
-    z-index: 1001; /* Ensure popup is on top */
 }
 
 .chatbot-avatar img {
@@ -30,7 +29,7 @@
     border: 1px solid #ccc; /* Add border */
     display: none;
     flex-direction: column; /* Ensure vertical layout */
-    z-index: 1001; /* Ensure popup is on top */
+    z-index: 1001;
 }
 
 .chatbot-popup.visible {
@@ -41,7 +40,6 @@
     background-color: rgb(131, 178, 212); /* Adjust header color */
     color: white;
     height: 40px;
-    /*padding: 1px; !* Thinner header *!*/
     border-radius: 8px 8px 0 0;
     cursor: pointer;
     display: flex;
@@ -105,21 +103,60 @@ input[type='text'] {
 
 button {
     padding: 10px 15px;
-    /*background-color: #1c1c1e;*/
+    background-color: #1c1c1e;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background-color: rgb(131, 178, 212); /* Adjust header color */
+}
+
+button:hover {
+    background-color: #333;
+}
+
+.processing-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.processing-dots span {
+    font-size: 20px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .new-message-dot {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 10px;
-    height: 10px;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
     background-color: red;
     border-radius: 50%;
+}
+
+/* Add this at the bottom of Chatbot.css to override any existing styles */
+.typing-area button {
+    background-color: white; /* Change background color */
+    color: black; /* Change text color */
+    border: 1px solid #000000; /* Add border */
+    border-radius: 4px; /* Optional: Add border radius */
+    padding: 10px 15px; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease; /* Add transition for smooth effect */
+}
+
+.typing-area button:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
 }
 

@@ -1,12 +1,11 @@
-// src/components/Chatbot.js
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Box } from '@chakra-ui/react';
+import axios from 'axios';
 import './Chatbot.css';
-import { useChatbot } from '../context/ChatbotContext';
+import { Box } from '@chakra-ui/react';
+import { useChatbot } from '../context/ChatbotContext'; // Import useChatbot
 
 const Chatbot = () => {
-    const { messages, handleSend, hasNewMessage, setHasNewMessage } = useChatbot();
+    const { messages, handleSend, hasNewMessage, setHasNewMessage } = useChatbot(); // Use the context
     const [input, setInput] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const messagesEndRef = useRef(null);
@@ -31,6 +30,9 @@ const Chatbot = () => {
         scrollToBottom();
     }, [messages]);
 
+    // Create a renderMessages array for rendering purposes
+    const renderMessages = [{ from: 'system', text: 'Generating...' }, ...messages.slice(1)];
+
     return (
         <div className="chatbot-container">
             <div className={`chatbot-avatar ${isOpen ? 'hidden' : ''}`} onClick={toggleChatbot}>
@@ -43,7 +45,7 @@ const Chatbot = () => {
                 </div>
                 <div className="chatbot-body">
                     <div className="messages">
-                        {messages.slice(1).map((msg, index) => ( // Ignore the initial prompt message
+                        {renderMessages.map((msg, index) => (
                             <div key={index} className={`message ${msg.from}`}>
                                 <div className="bubble">{msg.text}</div>
                             </div>
