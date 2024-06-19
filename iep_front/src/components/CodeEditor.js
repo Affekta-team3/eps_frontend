@@ -5,9 +5,9 @@ import './CodeEditor.css';
 import { useNavigate } from 'react-router-dom';
 
 const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti, isSubmitting, isTesting }) => {
-    const [code, setCode] = useState(`class Solution:
-    def problem(self):
-        # Write your code here`);
+    const defaultCode = `class Solution:\n    def problem(self, arr):\n        # Write your code here`;
+    const savedCode = localStorage.getItem('code') || defaultCode;
+    const [code, setCode] = useState(savedCode);
     const editorRef = useRef(null);
 
     const handleEditorChange = (value) => {
@@ -18,14 +18,6 @@ const CodeEditor = ({ onSubmit, onTest, setActiveTab, triggerConfetti, isSubmitt
         editorRef.current = editor;
         window.addEventListener('resize', () => editor.layout());
     };
-
-    useEffect(() => {
-        return () => {
-            if (editorRef.current) {
-                window.removeEventListener('resize', () => editorRef.current.layout());
-            }
-        };
-    }, []);
 
     return (
         <div className="code-editor">

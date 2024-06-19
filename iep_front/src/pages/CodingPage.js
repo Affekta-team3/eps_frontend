@@ -27,6 +27,9 @@ const CodingPage = () => {
     const { handleSend, clearMessages, setHasNewMessage, hasNewMessage } = useChatbot(); // Use the context
 
     useEffect(() => {
+        localStorage.clear();
+        // localStorage.setItem('code', '');
+
         const getProblemDetails = async () => {
             try {
                 const details = await fetchProblemDetails(problemId);
@@ -42,10 +45,12 @@ const CodingPage = () => {
     }, [problemId]);
 
     const handleBackClick = () => {
+        localStorage.clear();
         navigate('/');
     };
 
     const handleSubmission = async (code) => {
+        localStorage.setItem('code', code);
         setIsSubmitting(true); // Set loading state to true
         try {
             const evaluation = await evaluateSolution({ code_text: code, problem_id: problemId });
@@ -76,6 +81,7 @@ const CodingPage = () => {
     };
 
     const handleTest = async (code) => {
+        localStorage.setItem('code', code);
         setIsTesting(true); // Set loading state to true
         try {
             const response = await evaluateSolution({ code_text: code, problem_id: problemId });
