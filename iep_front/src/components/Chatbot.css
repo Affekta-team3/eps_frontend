@@ -83,7 +83,7 @@
 }
 
 .message.assistant .bubble {
-    background-color: #f1f1f1;
+    background-color: #87CEFA; /* Change bubble color to blue */
 }
 
 .typing-area {
@@ -159,4 +159,3 @@ button:hover {
 .typing-area button:hover {
     background-color: #f0f0f0; /* Change background color on hover */
 }
-
