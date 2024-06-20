@@ -1,8 +1,10 @@
 // src/components/ProblemList.js
+
 import React, { useEffect, useState } from 'react';
-import { Box, Text, Skeleton, SkeletonText, VStack } from '@chakra-ui/react';
+import {Box, Text, Skeleton, VStack, SkeletonText} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { fetchProblems } from '../services/apiService';
+import ProblemCard from './ProblemCard';
 import './ProblemList.css';
 
 const ProblemList = () => {
@@ -23,10 +25,6 @@ const ProblemList = () => {
         };
         getProblems();
     }, []);
-
-    const handleProblemClick = (problemId) => {
-        navigate(`/coding/${problemId}`);
-    };
 
     return (
         <VStack spacing={4} align="stretch">
@@ -51,22 +49,7 @@ const ProblemList = () => {
             ) : (
                 // Display problem cards when data is loaded
                 problems.map((problem) => (
-                    <Box
-                        key={problem.problem_id}
-                        className="problem-card"
-                        onClick={() => handleProblemClick(problem.problem_id)}
-                        p={4}
-                        borderWidth="1px"
-                        borderRadius="lg"
-                        overflow="hidden"
-                        bg="white"
-                        boxShadow="md"
-                        _hover={{ transform: 'translateY(-5px)', boxShadow: 'lg', transition: 'all 0.3s ease-in-out' }}
-                    >
-                        <Text fontSize="xl" fontWeight="bold">{problem.title}</Text>
-                        <Text>Difficulty: {problem.difficulty}</Text>
-                        <Text>Acceptance Rate: {Math.floor(Math.random() * 100)}%</Text>
-                    </Box>
+                    <ProblemCard key={problem.problem_id} problem={problem} />
                 ))
             )}
         </VStack>
