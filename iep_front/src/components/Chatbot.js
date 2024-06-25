@@ -41,7 +41,7 @@ const Chatbot = () => {
             </div>
             <div className={`chatbot-popup ${isOpen ? 'visible' : 'hidden'}`}>
                 <div className="chatbot-header" onClick={toggleChatbot}>
-                    <h4>AI ChatBot</h4>
+                    <h4>Ollama (local)</h4>
                 </div>
                 <div className="chatbot-body">
                     <div className="messages">

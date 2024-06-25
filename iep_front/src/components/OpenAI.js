@@ -96,7 +96,7 @@ const OpenAI = () => {
             </div>
             <div className={`openai-popup ${isOpen ? 'visible' : 'hidden'}`}>
                 <div className="openai-header" onClick={toggleChatbot}>
-                    <h4>AI ChatBot</h4>
+                    <h4>OpenAI (Azure)</h4>
                 </div>
                 <div className="openai-body">
                     <div className="messages">
