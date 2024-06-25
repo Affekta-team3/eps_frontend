@@ -6,7 +6,8 @@ import ProblemList from '../components/ProblemList';
 import UserInfo from '../components/UserInfo';
 import './ProblemListPage.css';
 import Chatbot from "../components/Chatbot";
-import { useChatbot } from '../context/ChatbotContext'; // Import useChatbot
+import { useChatbot } from '../context/ChatbotContext';
+import OpenAI from "../components/OpenAI"; // Import useChatbot
 
 const ProblemListPage = () => {
     // Mock user data
@@ -65,6 +66,7 @@ const ProblemListPage = () => {
                     <UserInfo user={user} />
                 </Box>
             </Flex>
+            <OpenAI />
             <Chatbot />
         </Box>
     );

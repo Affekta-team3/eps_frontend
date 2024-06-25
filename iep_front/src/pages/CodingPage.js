@@ -11,7 +11,8 @@ import { submitSolution, evaluateSolution, fetchProblemDetails } from '../servic
 import './CodingPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useChatbot } from '../context/ChatbotContext'; // Import useChatbot
+import { useChatbot } from '../context/ChatbotContext';
+import OpenAI from "../components/OpenAI"; // Import useChatbot
 
 const CodingPage = () => {
     const { problemId } = useParams(); // Use useParams to get problemId
@@ -175,6 +176,7 @@ const CodingPage = () => {
                 </div>
             </div>
             {showConfetti && <Confetti />}
+            <OpenAI />
             <Chatbot initialPrompt={initialPrompt} hasNewMessage={hasNewMessage} setHasNewMessage={setHasNewMessage} />
         </div>
     );

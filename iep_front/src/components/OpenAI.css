@@ -1,0 +1,159 @@
+.openai-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1001;
+}
+
+.openai-avatar {
+    cursor: pointer;
+}
+
+.openai-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.openai-popup {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 400px; /* Enlarge the popup card */
+    height: 500px; /* Enlarge the popup card */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid #ccc; /* Add border */
+    display: none;
+    flex-direction: column; /* Ensure vertical layout */
+    z-index: 1001;
+}
+
+.openai-popup.visible {
+    display: flex;
+}
+
+.openai-header {
+    background-color: rgb(209, 109, 106); /* Adjust header color */
+    color: white;
+    height: 40px;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.openai-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto; /* Enable scrolling */
+    padding: 10px; /* Add padding */
+}
+
+.message {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.message.assistant {
+    justify-content: flex-start;
+}
+
+.bubble {
+    max-width: 75%; /* Limit message width to 75% of the card */
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ddd; /* Add dialog frame */
+}
+
+.message.user .bubble {
+    background-color: #e0e0e0;
+}
+
+.message.assistant .bubble {
+    background-color: #f1f1f1;
+}
+
+.typing-area {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+}
+
+input[type='text'] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #1c1c1e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+.processing-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.processing-dots span {
+    font-size: 20px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.new-message-dot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+}
+
+/* Add this at the bottom of OpenAI.css to override any existing styles */
+.typing-area button {
+    background-color: white; /* Change background color */
+    color: black; /* Change text color */
+    border: 1px solid #000000; /* Add border */
+    border-radius: 4px; /* Optional: Add border radius */
+    padding: 10px 15px; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s ease; /* Add transition for smooth effect */
+}
+
+.typing-area button:hover {
+    background-color: #f0f0f0; /* Change background color on hover */
+}
