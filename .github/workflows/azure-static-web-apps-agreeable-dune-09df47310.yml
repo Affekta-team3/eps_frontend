@@ -31,8 +31,8 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_DUNE_09DF47310 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "eps_frontend" # Adjust according to your project structure
-          output_location: "eps_frontend/build"
+          app_location: "iep_front" # Adjust according to your project structure
+          output_location: "iep_front/build"
           api_location: "" 
 
   close_pull_request_job:
