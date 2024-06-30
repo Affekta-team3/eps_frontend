@@ -26,6 +26,9 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: iep_front  # Specify the correct directory
+      - name: List build directory
+        run: ls -la
+        working-directory: iep_front/build
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
