@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '14'
       - name: Install dependencies
-        run: npm install
+        run: npm install --force
         working-directory: iep_front  # Specify the correct directory
       - name: Build
         run: npm run build
