@@ -18,7 +18,7 @@ export const ChatbotProvider = ({ children }) => {
         setMessages(newMessages);
 
         try {
-            const response = await axios.post('http://localhost:11434/api/chat', {
+            const response = await axios.post('http://20.127.207.107:11434/api/chat', {
                 model: 'llama3',
                 messages: [
                     ...newMessages.map(msg => ({ role: msg.from, content: msg.text })),
